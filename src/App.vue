@@ -1,85 +1,151 @@
-<script setup lang="ts">
-// import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <v-layout class="d-block">
+    <v-app-bar
+      class="header"
+      scroll-behavior="fade-image"
+      scroll-threshold="1000"
+      image="img/app_bar.jpg"
+    >
+      <template v-slot:prepend>
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      </template>
+      <v-app-bar-title class="header-title">23 HOUSE SPA</v-app-bar-title>
+    </v-app-bar>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <RouterView class="main" />
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header> -->
+    <v-footer class="footer d-block">
+      <div class="infomation">
+        <div class="socials text-center">
+          <div v-for="icon in icons" :key="icon.icon" class="icon mr-2">
+            <a :href="icon.link" target="_blank">
+              <v-icon :icon="icon.icon"></v-icon>
+            </a>
+          </div>
+        </div>
 
-  <RouterView />
+        <div class="mb-5">
+          <div class="footer-title">Giới thiệu về 23 House Spa:</div>
+          <div>
+            #23House là nơi điều trị mụn - Chăm sóc, tái tạo da chuyên sâu - Gội đầu - Massage thư
+            giản xả stress
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-title">Giờ mở cửa:</div>
+          <div>08:30 - 20:00</div>
+          <div>Từ thứ 2 - Chủ nhật</div>
+        </div>
+
+        <div class="branchs">
+          <div>Danh sách chi nhánh:</div>
+          <div class="branch-list" v-for="branch in branchs" :key="branch.name">
+            <div class="branch-name footer-title">{{ branch.name }}</div>
+            <div class="branch-address">{{ branch.address }}</div>
+          </div>
+        </div>
+        <div class="d-flex justify-center my-4">
+          <span>{{ new Date().getFullYear() }}</span>
+          <span class="mx-2">—</span>
+          <strong>23 House - Beauty & Spa</strong>
+        </div>
+      </div>
+    </v-footer>
+  </v-layout>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<script lang="ts">
+import { defineComponent, reactive, ref } from 'vue'
+
+export default defineComponent({
+  setup() {
+    const icons = reactive([
+      { icon: 'mdi-facebook', link: 'https://www.facebook.com/23HouseSpa' },
+      { icon: 'mdi-instagram', link: 'https://www.instagram.com/23housebymi/' }
+    ])
+
+    const branchs = reactive([
+      {
+        name: 'Dĩ An',
+        address: '254M Võ Thị Sáu, Tây A , Đông Hoà, Dĩ An, Bình Dương Thành phố Hồ Chí Minh 81000'
+      },
+      {
+        name: 'Lái Thiêu',
+        address: 'Đường 3/2, Long Thới, Lái Thiêu, Thuận An An Thuan, Bình Dương'
+      },
+      {
+        name: 'Thủ Dầu 1',
+        address: '1148 Cách Mạng Tháng 8, Phú Thọ Thủ Dầu Một, Bình Dương 8100'
+      },
+      {
+        name: 'Thủ Đức',
+        address:
+          'Shop House Block 2 Chung cư Chương Dương, 34 Đ. Số 12, Trường Thọ Thủ Đức, Ho Chi Minh City'
+      }
+    ])
+
+    return { icons, branchs }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+.header {
+  font-weight: 700;
+  color: #8c6f5f !important;
+
+  .header-title {
+    font-size: 26px;
+  }
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.main {
+  width: 100vw;
+  height: 100vh;
+  background-color: #ddd5c6;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
+.footer {
+  height: 100px;
+  width: 100vw;
+  background-color: #fff1c9;
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
+  .footer-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .socials {
+    display: flex;
+    justify-content: center;
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
+    .icon {
+      a {
+        color: #000;
+      }
+    }
+  }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
+  .infomation {
+    .branchs {
+      .branch-list {
+        .branch-name {
+          font-size: 20px;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  .main {
+    padding: 0 20%;
   }
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+@media (min-width: 1600px) {
+  .main {
+    padding: 0 30%;
   }
 }
 </style>
