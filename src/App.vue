@@ -33,8 +33,8 @@
     </div>
 
     <v-footer class="footer d-block">
-      <div class="infomation">
-        <div class="socials text-center">
+      <div class="v-row infomation justify-center">
+        <div class="v-col-12 socials text-center">
           <div v-for="icon in icons" :key="icon.icon" class="icon mr-2">
             <a :href="icon.link" target="_blank">
               <v-icon :icon="icon.icon"></v-icon>
@@ -42,28 +42,36 @@
           </div>
         </div>
 
-        <div class="mb-5">
+        <div xs="12" md="6" class="mb-5 mx-5">
           <div class="footer-title">Giới thiệu về 23 House Spa:</div>
           <div>
             #23House là nơi điều trị mụn - Chăm sóc, tái tạo da chuyên sâu - Gội đầu - Massage thư
             giản xả stress
           </div>
+          <iframe
+            class="google-map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2329.557173579135!2d106.77309146817056!3d10.900327230591147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d920fc351d45%3A0x1fa940ad0c148c64!2s23%20House%20Spa%20D%C4%A9%20An!5e0!3m2!1svi!2s!4v1718546408527!5m2!1svi!2s"
+            width="600"
+            height="450"
+            style="border: 0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
 
-        <div>
-          <div class="footer-title">Giờ mở cửa:</div>
-          <div>08:30 - 20:00</div>
-          <div>Từ thứ 2 - Chủ nhật</div>
-        </div>
-
-        <div class="branchs">
+        <div class="branchs mx-5">
+          <div>
+            <div class="footer-title">Giờ mở cửa:</div>
+            <div>08:30 - 20:00</div>
+            <div>Từ thứ 2 - Chủ nhật</div>
+          </div>
           <div>Danh sách chi nhánh:</div>
           <div class="branch-list" v-for="branch in branchs" :key="branch.name">
             <div class="branch-name footer-title">{{ branch.name }}</div>
             <div class="branch-address">{{ branch.address }}</div>
           </div>
         </div>
-        <div class="d-flex justify-center my-4">
+        <div class="v-col-12 d-flex justify-center my-4">
           <span>{{ new Date().getFullYear() }}</span>
           <span class="mx-2">—</span>
           <strong>23 House - Beauty & Spa</strong>
@@ -178,6 +186,11 @@ export default defineComponent({
   .footer-title {
     font-size: 20px;
     font-weight: bold;
+  }
+
+  .google-map {
+    width: 100%;
+    height: 300px;
   }
 
   .socials {

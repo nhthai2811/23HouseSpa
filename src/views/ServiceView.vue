@@ -68,7 +68,7 @@
             <v-card-actions>
               <v-btn
                 color="deep-purple-lighten-2"
-                text="Reserve"
+                text="Đặt lịch"
                 block
                 border
                 @click="reserve"
@@ -79,21 +79,42 @@
       </v-row>
     </v-layout>
     <div class="space"></div>
+
+    <BookDialog
+      :showBookDialog="showBookDialog"
+      @cancel="handleCancel"
+      @save="handleSave"
+      ref="bookDialog"
+    ></BookDialog>
   </main>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
+import BookDialog from '../components/BookDialog.vue'
 
 export default defineComponent({
+  components: {
+    BookDialog: BookDialog
+  },
   setup() {
     const selection = reactive({})
     const loading = ref(false)
+    const showBookDialog = ref(false)
     const reserve = () => {
-      console.log(selection)
+      showBookDialog.value = true
     }
 
-    return { selection, loading, reserve }
+    const handleSave = (data: any) => {
+      console.log(data)
+      showBookDialog.value = false
+    }
+
+    const handleCancel = () => {
+      showBookDialog.value = false
+    }
+
+    return { selection, loading, showBookDialog, reserve, handleSave, handleCancel }
   }
 })
 </script>

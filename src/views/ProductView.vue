@@ -55,20 +55,14 @@
 
             <div class="px-4 mb-2">
               <v-chip-group v-model="selection" selected-class="bg-deep-purple-lighten-2">
-                <v-chip>5:30PM</v-chip>
-
-                <v-chip>7:30PM</v-chip>
-
-                <v-chip>8:00PM</v-chip>
-
-                <v-chip>9:00PM</v-chip>
+                <v-chip v-for="i in 5" :key="i">5:30PM</v-chip>
               </v-chip-group>
             </div>
 
             <v-card-actions>
               <v-btn
                 color="deep-purple-lighten-2"
-                text="Reserve"
+                text="Đặt lịch"
                 block
                 border
                 @click="reserve"
