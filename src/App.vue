@@ -7,12 +7,30 @@
       image="img/app_bar.jpg"
     >
       <template v-slot:prepend>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       </template>
       <v-app-bar-title class="header-title">23 HOUSE SPA</v-app-bar-title>
     </v-app-bar>
 
-    <RouterView class="main" />
+    <v-navigation-drawer class="side-bar" v-model="drawer" location="left" temporary>
+      <v-list density="compact">
+        <v-list-item
+          v-for="(item, i) in menus"
+          :key="i"
+          :value="item"
+          :active="item.path === $route.path"
+          :to="item.path"
+          color="primary"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <div class="mt-15">
+      <!-- <v-breadcrumbs class="breadcrumbs" :items="['Trang chủ']"> </v-breadcrumbs> -->
+      <RouterView class="main" />
+    </div>
 
     <v-footer class="footer d-block">
       <div class="infomation">
@@ -85,7 +103,29 @@ export default defineComponent({
       }
     ])
 
-    return { icons, branchs }
+    const menus = reactive([
+      {
+        title: 'Giới thiệu',
+        path: '/',
+        name: 'intro'
+      },
+      {
+        title: 'Dịch vụ',
+        path: '/service',
+        name: 'service'
+      },
+      { title: 'Sản phẩm', path: '/products', name: 'products' },
+      {
+        title: 'Tuyển dụng',
+        path: '/recruitment',
+        name: 'recruitment'
+      },
+      { title: 'Liên hệ', path: '/contact', name: 'contact' }
+    ])
+
+    const drawer = ref(false)
+
+    return { icons, branchs, menus, drawer }
   }
 })
 </script>
@@ -100,21 +140,46 @@ export default defineComponent({
   }
 }
 
+.side-bar {
+  background-color: #fffae6;
+
+  .v-navigation-drawer__content {
+    .v-list {
+      .v-list-item {
+        &:hover {
+          transition-duration: 0ms;
+          color: #8c6f5f !important;
+          .v-list-item-title {
+            font-weight: bold !important;
+          }
+        }
+      }
+      .v-list-item--active {
+        color: #8c6f5f !important;
+
+        .v-list-item-title {
+          font-weight: bold !important;
+        }
+      }
+    }
+  }
+}
+
 .main {
   width: 100vw;
-  height: 100vh;
   background-color: #ddd5c6;
 }
 
 .footer {
   height: 100px;
   width: 100vw;
-  background-color: #fff1c9;
+  background-color: #fffae6;
 
   .footer-title {
     font-size: 20px;
     font-weight: bold;
   }
+
   .socials {
     display: flex;
     justify-content: center;
